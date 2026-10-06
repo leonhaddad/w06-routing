@@ -1,0 +1,4 @@
+r1 link r1-r2 (eth1) cut at 12:00:00 UTC
+route table corrected at 12:00:12 UTC
+reconvergence time: 12 seconds
+OSPF default hello/dead: 10s / 40s; observed repair is consistent with the failure being noticed and the alternate path being installed after the neighbor-down timer.

@@ -1,0 +1,53 @@
+services:
+  r1:
+    image: frrouting/frr:latest
+    container_name: r1
+    profiles: ["routing"]
+    privileged: true
+    volumes:
+      - ./w06-routing/topology/r1:/etc/frr:ro
+    networks:
+      - net_a
+      - net_b
+    command: /sbin/tini -- /usr/lib/frr/docker-start
+
+  r2:
+    image: frrouting/frr:latest
+    container_name: r2
+    profiles: ["routing"]
+    privileged: true
+    volumes:
+      - ./w06-routing/topology/r2:/etc/frr:ro
+    networks:
+      - net_b
+      - net_c
+    command: /sbin/tini -- /usr/lib/frr/docker-start
+
+  r3:
+    image: frrouting/frr:latest
+    container_name: r3
+    profiles: ["routing"]
+    privileged: true
+    volumes:
+      - ./w06-routing/topology/r3:/etc/frr:ro
+    networks:
+      - net_c
+      - net_a
+    command: /sbin/tini -- /usr/lib/frr/docker-start
+
+networks:
+  net_a:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.0.0.0/24
+  net_b:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.0.1.0/24
+  net_c:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.0.2.0/24
